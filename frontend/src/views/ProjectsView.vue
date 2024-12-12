@@ -3,48 +3,7 @@
     <PageHeader title="Projeler" breadcrumb="Profil > Projeler" buttonText="Proje Ekle" buttonAction="#addProjectModal"/>
 
     <section class="section">
-        <div class="row">
-            <div class="table-responsive">
-                <table id="sade_projects-table" class="table table-hover align-middle">
-                <thead class="table-light text-center">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Teslim Tarihi</th>
-                    <th scope="col">Proje</th>
-                    <th scope="col">Durum</th>
-                    <th scope="col">Öncelik</th>
-                    <th scope="col">Proje Yöneticisi</th>
-                    <th scope="col" class="text-center">İşlemler</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    <th scope="row" class="text-center">1</th>
-                    <td class="fw-bold text-primary text-center">04.03.2025</td>
-                    <td class="text-center">MVC Avukatlık</td>
-                    <td class="text-center">
-                        <span class="badge bg-success">AKTİF</span>
-                    </td>
-                    <td class="text-center">
-                        <span class="badge bg-danger">Yüksek</span>
-                    </td>
-                    <td class="text-center">Sade Uckun</td>
-                    <td class="text-center gap-2">
-                        <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#projectDetails-1">
-                        <i class="bi bi-eye"></i>
-                        </button>
-                        <button class="btn btn-sm btn-outline-success mx-1" data-bs-toggle="modal" data-bs-target="#projectPeople<%= project._id %>">
-                        <i class="bi bi-people"></i>
-                        </button>
-                        <button class="btn btn-sm btn-outline-danger sade-delete-btn" data-id="<%= project._id %>" data-type="projects">
-                        <i class="bi bi-trash"></i>
-                        </button>
-                    </td>
-                    </tr>
-                </tbody>
-                </table>
-            </div>
-        </div>
+        <ProjectList :projects="projects" />
     </section>
 
     <!-- Add Project Modal::Start -->
@@ -72,11 +31,19 @@
 <script>
 
     import PageHeader from '@/components/PageHeader.vue'
+    import ProjectList from '@/components/Projects/ProjectList.vue'
+    import projects from '@/db.js'
 
     export default {
         name: 'ProjectsView',
         components: {
-            PageHeader
+            PageHeader,
+            ProjectList
+        },
+        data() {
+            return {
+                projects: projects
+            }
         }
     }
 </script>
