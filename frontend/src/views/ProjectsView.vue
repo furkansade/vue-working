@@ -3,7 +3,8 @@
     <PageHeader title="Projeler" breadcrumb="Profil > Projeler" buttonText="Proje Ekle" buttonAction="#addProjectModal"/>
 
     <section class="section">
-        <ProjectList :projects="projects" />
+        <ProjectList :projects="paginatedProjects" />
+        <Pagination :currentPage="currentPage" :totalPages="totalPages" />
     </section>
 
     <!-- Add Project Modal::Start -->
@@ -32,17 +33,31 @@
 
     import PageHeader from '@/components/PageHeader.vue'
     import ProjectList from '@/components/Projects/ProjectList.vue'
+    import Pagination from '@/components/Pagination.vue'
     import projects from '@/db.js'
 
     export default {
         name: 'ProjectsView',
         components: {
             PageHeader,
-            ProjectList
+            ProjectList,
+            Pagination
         },
         data() {
             return {
-                projects: projects
+                projects: projects,
+                currentPage: 1,
+                itemsPerPage: 6
+            }
+        },
+        computed: {
+            totalPages() {
+                return Math.ceil(this.projects.length / this.itemsPerPage);
+            },
+            paginatedProjects() {
+                const startIndex = (this.currentPage - 1) * (this.itemsPerPage);
+                const endIndex = startIndex + this.itemsPerPage;
+                return this.projects.slice(startIndex, endIndex);
             }
         }
     }
