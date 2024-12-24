@@ -8,6 +8,9 @@
                     <li class="breadcrumb-item">
                         <RouterLink :to="{ name: 'Dashboard' }">Profil</RouterLink>
                     </li>
+                    <li v-if="parentTitle" class="breadcrumb-item" style="text-transform: capitalize;">
+                        <RouterLink :to="{ name: parentTitleLink }">{{ parentTitle }}</RouterLink>
+                    </li>
                     <li class="breadcrumb-item" style="text-transform: capitalize;">{{ title }}</li>
                 </ol>
             </nav>
@@ -15,7 +18,7 @@
         </div>
 
         <div class="col-md-4 text-end mb-3">
-            <button type="button" class="btn btn-sm btn-success shadow-sm" data-bs-toggle="modal" :data-bs-target="buttonAction">
+            <button type="button" class="btn btn-sm shadow-sm" :class="buttonColor" data-bs-toggle="modal" :data-bs-target="buttonAction">
                 <i class="bi bi-plus-circle"></i> {{ buttonText }} 
             </button>
         </div>
@@ -26,6 +29,14 @@
     export default {
         name: 'PageHeader',
         props: {
+            parentTitle:{
+                type: String,
+                required: false
+            },
+            parentTitleLink:{
+                type: String,
+                required: false
+            },
             title: {
                 type: String,
                 required: true
@@ -49,6 +60,11 @@
             buttonAction: {
                 type: String,
                 default: null
+            },
+            buttonColor: {
+                type: String,
+                required: true,
+                default: 'btn-success'
             }
         }
     }

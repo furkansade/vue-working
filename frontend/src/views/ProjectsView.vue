@@ -4,7 +4,7 @@
 
     <section class="section">
         <ProjectList :projects="paginatedProjects" />
-        <Pagination :currentPage="currentPage" :totalPages="totalPages" />
+        <Pagination :currentPage="currentPage" :totalPages="totalPages" @page-changed="updatePage" />
     </section>
 
     <!-- Add Project Modal::Start -->
@@ -58,6 +58,11 @@
                 const startIndex = (this.currentPage - 1) * (this.itemsPerPage);
                 const endIndex = startIndex + this.itemsPerPage;
                 return this.projects.slice(startIndex, endIndex);
+            }
+        },
+        methods: {
+            updatePage(page) {
+                this.currentPage = page;
             }
         }
     }

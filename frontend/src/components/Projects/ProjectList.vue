@@ -1,7 +1,9 @@
 <template>
   <div class="row">
       <div class="col-lg-4" v-for="project in projects" :key="project._id">
+        <RouterLink :to="'/projects/' + project._id">
           <ProjectItem :project="project"/>
+        </RouterLink>
       </div>
   </div>
 </template>

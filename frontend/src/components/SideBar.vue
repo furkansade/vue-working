@@ -10,6 +10,7 @@
         </li>
 
         <li class="nav-heading">YÖNETİM</li>
+        <font-awesome-icon icon="user" size="lg" />
 
         </ul>
     </aside>
