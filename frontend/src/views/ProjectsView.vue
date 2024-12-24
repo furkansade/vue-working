@@ -1,6 +1,6 @@
 <template>
 
-    <PageHeader title="Projeler" breadcrumb="Profil > Projeler" buttonText="Proje Ekle" buttonAction="#addProjectModal"/>
+    <PageHeader title="Projeler" breadcrumb="Profil > Projeler" buttonText="Proje Ekle" buttonAction="#addProjectModal" buttonColor="btn-success"/>
 
     <section class="section">
         <ProjectList :projects="paginatedProjects" />
@@ -16,11 +16,48 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                
+                    <form class="row g-3 sade_addForm" @submit.prevent="submitForm">
+                        <div class="col-md-12">
+                            <label for="projectName" class="form-label">Proje İsmi</label>
+                            <input type="text" class="form-control" name="projectName" id="projectName" v-model="formData.projectName" required>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="projectExpireDate" class="form-label">Proje Son Teslim Tarihi</label>
+                            <input type="date" class="form-control" name="projectExpireDate" id="projectExpireDate" v-model="formData.projectExpireDate">
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="projectDescription" class="form-label">Proje Açıklaması</label>
+                            <textarea class="form-control" name="projectDescription" id="projectDescription" v-model="formData.projectDescription" rows="3"></textarea>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="projectStatus" class="form-label">Proje Durumu</label>
+                            <select class="form-select" name="projectStatus" id="projectStatus" v-model="formData.projectStatus" required>
+                            <option value="" disabled>Durum</option>
+                            <option value="active">Aktif</option>
+                            <option value="inactive">Pasif</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="assignedUsers" class="form-label">Proje Çalışanları</label>
+                            <select class="form-select" name="assignedUsers" id="assignedUsers" v-model="formData.users" multiple>
+                                <option value="Ahmet Demir">Ahmet Demir</option>
+                                <option value="Ahmet Demir">Ahmet Demir</option>
+                                <option value="Ahmet Demir">Ahmet Demir</option>
+                            </select>
+                            <div class="form-text">CTRL | CMD ile birden fazla seçim yapabilirsiniz.</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-sm btn-primary">Ekle</button>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Kapat</button>
-                    <button type="submit" class="btn btn-sm btn-primary">Ekle</button>
                 </div>
             </div>
         </div>
@@ -47,7 +84,14 @@
             return {
                 projects: projects,
                 currentPage: 1,
-                itemsPerPage: 6
+                itemsPerPage: 6,
+                formData: {
+                    projectName: '',
+                    projectExpireDate: '',
+                    projectDescription: '',
+                    projectStatus: '',
+                    users: [],
+                }
             }
         },
         computed: {
@@ -63,6 +107,8 @@
         methods: {
             updatePage(page) {
                 this.currentPage = page;
+            },
+            submitForm() {
             }
         }
     }
