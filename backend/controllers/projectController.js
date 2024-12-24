@@ -7,10 +7,7 @@ const getAllProjects = async (req, res) => {
     try {
         const projects = await Project.find();
 
-        res.status(200).json({ 
-            projects,
-            message: 'Tüm projeler'
-         })
+        res.status(200).json(projects)
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: 'Bir hata oluştu, lütfen tekrar deneyiniz!' })

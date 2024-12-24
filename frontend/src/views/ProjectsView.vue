@@ -108,6 +108,9 @@
                 try {
                     const response = await fetch('http://localhost:3000/api/v1/projects')
                     const data = await response.json();
+
+                    this.projects = data;
+                    
                 } catch (error) {
                     
                 }
