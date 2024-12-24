@@ -71,7 +71,6 @@
     import PageHeader from '@/components/PageHeader.vue'
     import ProjectList from '@/components/Projects/ProjectList.vue'
     import Pagination from '@/components/Pagination.vue'
-    import projects from '@/db.js'
 
     export default {
         name: 'ProjectsView',
@@ -82,7 +81,7 @@
         },
         data() {
             return {
-                projects: projects,
+                projects: [],
                 currentPage: 1,
                 itemsPerPage: 6,
                 formData: {
@@ -105,11 +104,22 @@
             }
         },
         methods: {
+            async fetchProjects() {
+                try {
+                    const response = await fetch('http://localhost:3000/api/v1/projects')
+                    const data = await response.json();
+                } catch (error) {
+                    
+                }
+            },
             updatePage(page) {
                 this.currentPage = page;
             },
             submitForm() {
             }
+        },
+        created() {
+            this.fetchProjects();
         }
     }
 </script>
