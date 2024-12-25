@@ -22,6 +22,11 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(express.static('../frontend/dist'));
+app.get('*', (req, res) => {
+  res.sendFile('index.html', { root: '../frontend/dist' });
+});
+
 app.use('/api/v1/projects', projectRoute);
 
 
