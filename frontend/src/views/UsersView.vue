@@ -1,5 +1,5 @@
 <template>
-    <PageHeader />
+    <PageHeader title="Kullanıcılar" breadcrumb="Profil > Kullanıcılar" buttonText="Kullanıcı Ekle" buttonAction="#addUserModal" buttonColor="btn-success"/>
 </template>
 
 <script>

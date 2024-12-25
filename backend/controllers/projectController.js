@@ -25,12 +25,7 @@ const getProject = async (req, res) => {
         const project = await findDocumnetById(Project, id, res);
         if(!project) return;
 
-        const projectName = project.projectName;
-
-        res.status(200).json({
-            project,
-            message: `Proje: ${projectName}`
-        })
+        res.status(200).json(project)
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: 'Bir hata oluştu, lütfen tekrar deneyiniz!' })

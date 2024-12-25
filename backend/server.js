@@ -2,12 +2,14 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 
+import connectToDatabase from './config/db.js';
 
 // routes
 import projectRoute from './routes/projectRoute.js'
-import connectToDatabase from './config/db.js';
+import userRoute from './routes/userRoute.js'
 
 dotenv.config();
+connectToDatabase()
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -22,19 +24,14 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static('../frontend/dist'));
-app.get('*', (req, res) => {
-  res.sendFile('index.html', { root: '../frontend/dist' });
-});
+// app.use(express.static('../frontend/dist'));
+// app.get('*', (req, res) => {
+//   res.sendFile('index.html', { root: '../frontend/dist' });
+// });
 
 app.use('/api/v1/projects', projectRoute);
+app.use('/api/v1/users', userRoute);
 
-
-try {
-    await connectToDatabase()
-    app.listen(PORT, () => {
-        console.log(`Server is listening port: ${ PORT }`);
-    })
-} catch (error) {
-    process.exit(1);
-}
+app.listen(PORT, () => {
+    console.log(`Server is listening port: ${ PORT }`);
+})

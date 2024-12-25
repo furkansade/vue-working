@@ -4,7 +4,7 @@ const isValidObjectId = (id, res) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res
       .status(400)
-      .json({ message: "Projenin kimliği sisteme uygun değil!" });
+      .json({ message: "Kimlik sisteme uygun değil!" });
   }
 };
 
