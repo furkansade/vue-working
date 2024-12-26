@@ -1,7 +1,13 @@
 <template>
     <PageHeader title="Projeler" breadcrumb="Profil > Projeler" buttonText="Proje Ekle" buttonAction="#addProjectModal" buttonColor="btn-success" />
 
-    <section class="section">
+    <div v-if="isLoading" class="text-center">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <section v-else class="section">
         <!-- Projeler Listesi -->
         <ProjectList :projects="paginatedProjects" />
 
@@ -72,6 +78,7 @@ import PageHeader from '@/components/PageHeader.vue'
 import ProjectList from '@/components/Projects/ProjectList.vue'
 import Pagination from '@/components/Pagination.vue'
 import { useProjectStore } from '@/stores/projectStore.js'
+import { mapState } from 'pinia'
 
 export default {
     name: 'ProjectsView',
@@ -94,15 +101,10 @@ export default {
         }
     },
     computed: {
-        // Pinia store'daki projelere erişiyoruz
-        projects() {
-            return this.projectStore.projects;
-        },
-        // Toplam sayfa sayısını hesaplıyoruz
+        ...mapState(useProjectStore, ['projects', 'isLoading']),
         totalPages() {
             return Math.ceil(this.projects.length / this.itemsPerPage);
         },
-        // Sayfa bazlı projeleri getiriyoruz
         paginatedProjects() {
             const startIndex = (this.currentPage - 1) * this.itemsPerPage;
             const endIndex = startIndex + this.itemsPerPage;
@@ -110,24 +112,12 @@ export default {
         }
     },
     methods: {
-        async fetchProjects() {
-            await this.projectStore.fetchProjects();
-        },
         updatePage(page) {
             this.currentPage = page;
         },
         submitForm() {
             console.log('Form submitted:', this.formData);
-            // Burada form verilerini işleme logic'ini yazabilirsiniz
         }
     },
-    created() {
-        this.fetchProjects();
-    },
-    setup() {
-        return {
-            projectStore: useProjectStore()
-        }
-    }
 }
 </script>

@@ -12,7 +12,7 @@
     </div>
 
     <div class="container" v-else>
-        <p>Sade Software</p>
+        <p>Sade Software - Yükleniyor</p>
     </div>
 
 </template>
@@ -20,41 +20,35 @@
 <script>
 
 import PageHeader from '@/components/PageHeader.vue';
-import projects from '@/db.js'
+import { useProjectStore } from '@/stores/projectStore.js'
+import { mapState } from 'pinia'
 
 export default {
     name: 'SingleProjectView',
     components: {
         PageHeader
     },
+    created() {
+        this.selectProject();
+    },
     methods: {
         goToBackProjects() {
             this.$router.push({ name: 'Projects' })
         },
-        async fetchProject() {
+        selectProject() {
             const projectId = this.$route.params.id;
-            try {
-                const response = await fetch(`http://localhost:3000/api/v1/projects/${projectId}`) 
-                const data = await response.json();
-                
-                this.project = data;
-
-                this.loading = false;
-            } catch (error) {
-                console.error(error)
-            }
+            this.project = this.selectedProject(projectId);
+            this.loading = false;
         }
+    },
+    computed: {
+        ...mapState(useProjectStore, ['selectedProject'])
     },
     data() {
         return {
             project: null,
             loading: true,
         }
-    },
-    created() {
-        this.fetchProject();
-        // const projectId = this.$route.params.id;
-        // this.project = projects.find(project => project._id === projectId)
     },
 }
 </script>
