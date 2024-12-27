@@ -12,7 +12,7 @@
         <ProjectList :projects="paginatedProjects" />
 
         <!-- Sayfalama -->
-        <Pagination :currentPage="currentPage" :totalPages="totalPages" @page-changed="updatePage" />
+        <PaginationWidget :currentPage="currentPage" :totalPages="totalPages" @page-changed="updatePage" />
     </section>
 
     <!-- Add Project Modal::Start -->
@@ -76,7 +76,7 @@
 <script>
 import PageHeader from '@/components/PageHeader.vue'
 import ProjectList from '@/components/Projects/ProjectList.vue'
-import Pagination from '@/components/Pagination.vue'
+import PaginationWidget from '@/components/widgets/PaginationWidget.vue'
 import { useProjectStore } from '@/stores/projectStore.js'
 import { mapState } from 'pinia'
 
@@ -85,7 +85,7 @@ export default {
     components: {
         PageHeader,
         ProjectList,
-        Pagination
+        PaginationWidget
     },
     data() {
         return {

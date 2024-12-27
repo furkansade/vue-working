@@ -3,6 +3,8 @@ import bcrypt from 'bcryptjs'
 
 const Schema = mongoose.Schema;
 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const UserSchema = new Schema({
     firstName: {
         type: String,
@@ -16,7 +18,8 @@ const UserSchema = new Schema({
         type: String,
         required: true,
         unique: true,
-        trim: true
+        trim: true,
+        match: [emailRegex, 'Geçersiz e-posta adresi!']
     },
     password: {
         type: String,
