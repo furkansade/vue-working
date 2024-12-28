@@ -14,10 +14,10 @@
     <tbody>
     <tr v-for="user in users" :key="user.id">
       <th scope="row">1</th>
-      <td>{{ user.firstName }}</td>
-      <td>Designer</td>
-      <td>28</td>
-      <td>2016-05-25</td>
+      <td>{{ user.firstName }} {{ user.lastName }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.role === 'admin' ? 'Yönetici' : 'Çalışan' }}</td>
+      <td>BUTON</td>
       <td>
         <button class="btn btn-sm btn-outline-danger">
           <i class="bi bi-trash"></i>
@@ -33,8 +33,8 @@ export default {
   name: "UsersTable",
   props: {
     users: {
-      type: Object,
-      default: () => ({}),
+      type: Array,
+      default: () => ([]),
     }
   }
 }

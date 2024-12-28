@@ -15,9 +15,8 @@ export const useUserStore = defineStore('userStore', {
         async fetchUsers() {
             this.isLoading = true;
             try {
-                const response = await axios.get("https://localhost:3000/api/v1/users");
+                const response = await axios.get("http://localhost:3000/api/v1/users");
                 this.users = response.data;
-                console.log("this.users:", this.users);
             } catch (e) {
                 console.error(e);
             } finally {
