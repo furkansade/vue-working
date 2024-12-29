@@ -1,6 +1,6 @@
 <template>
-    <NavBar />
-    <SideBar />
+    <NavBar v-if="showLayout"/>
+    <SideBar v-if="showLayout"/>
     <RouterView />
 </template>
 
@@ -15,6 +15,11 @@
             NavBar,
             SideBar
         },
+        computed: {
+            showLayout() {
+                return this.$route.name !== 'Login'
+            }
+        }
     }
 </script>
 
