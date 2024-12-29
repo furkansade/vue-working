@@ -61,4 +61,4 @@ MongoDB üzerinde bir veritabanı oluşturduktan sonra ilk kullanıcı kaydını
 Projenin geliştirilmesi devam etmektedir. Yeni özellikler eklendikçe belgeler güncellenecektir.
 
 ## Lisans
-Bu proje MIT Lisansı ile korunmaktadır. Daha fazla bilgi için lütfen `LICENSE` dosyasına göz atın.
+Bu proje MIT Lisansı ile korunmaktadır.
