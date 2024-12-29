@@ -7,6 +7,7 @@ import connectToDatabase from './config/db.js';
 // routes
 import projectRoute from './routes/projectRoute.js'
 import userRoute from './routes/userRoute.js'
+import authRoute from './routes/authRoute.js'
 
 dotenv.config();
 connectToDatabase()
@@ -31,6 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/v1/projects', projectRoute);
 app.use('/api/v1/users', userRoute);
+app.use('/api/v1/auth', authRoute);
 
 app.listen(PORT, () => {
     console.log(`Server is listening port: ${ PORT }`);
