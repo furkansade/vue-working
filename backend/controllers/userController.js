@@ -34,6 +34,8 @@ const createUser = async (req, res) => {
 
         const savedUser = await newUser.save();
 
+        savedUser.password = undefined;
+
         res.status(201).json({ message: 'Yeni kullanıcı eklendi.', user: savedUser })
         
     } catch (error) {
