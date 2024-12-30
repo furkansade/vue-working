@@ -2,6 +2,9 @@ import User from "../models/User.js";
 import userValidation from "../validations/userValidation.js";
 
 
+const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z0-9])[A-Za-z\d@$!%*#?&.]{8,}$/;
+
+
 const getAllUsers = async (req, res) => {
     try {
         
@@ -22,6 +25,11 @@ const createUser = async (req, res) => {
 
         if(existingEmail) {
             return res.status(400).json({ message: 'Eklemek istediğiniz mail sisteme kayıtlı!' })
+        }
+
+        // password validation
+        if (!password.match(passwordRegex)) {
+            return res.status(400).json({ message: 'Şifre en az 8 karakter olmalı ve en az bir harf, bir rakam ve bir özel karakter içermelidir!' })
         }
 
         const newUser = new User({
