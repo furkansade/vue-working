@@ -12,6 +12,7 @@ import {createPinia} from "pinia";
 
 import {useProjectStore} from "./stores/projectStore.js";
 import {useUserStore} from "@/stores/userStore.js";
+import { useAuthStore } from "./stores/authStore.js";
 
 // import the fontawesome core
 import {library} from "@fortawesome/fontawesome-svg-core";
@@ -24,6 +25,13 @@ import {faUser} from "@fortawesome/free-solid-svg-icons";
 library.add(faUser);
 
 const pinia = createPinia();
+
+const storedUser = localStorage.getItem("user");
+
+if (storedUser) {
+    const userData = JSON.parse(storedUser);
+    useAuthStore(pinia).user = userData;
+}
 
 const projectStore = useProjectStore(pinia);
 const userStore = useUserStore(pinia);

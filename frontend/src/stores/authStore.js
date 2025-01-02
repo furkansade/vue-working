@@ -6,7 +6,9 @@ export const useAuthStore = defineStore('authStore', {
         user: null,
     }),
     getters: {
-
+        isAdmin: (state) => {
+            return !!state.user && state.user.role === 'admin';
+        }
     },
     actions: {
         async createUser(newUserData) {

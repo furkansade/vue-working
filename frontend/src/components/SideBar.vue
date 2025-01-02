@@ -2,7 +2,7 @@
   <aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
 
-        <li v-for="link in sideBarLinks" :key="link.name" class="nav-item" >
+        <li v-for="link in filteredLinks" :key="link.name" class="nav-item" >
             <RouterLink :to="{ name: link.name }" class="nav-link" :class="{ collapsed: $route.name !== link.name }">
             <i :class="link.icon"></i>
             <span>{{ link.label }}</span>
@@ -17,6 +17,10 @@
 </template>
 
 <script>
+
+    import { useAuthStore } from '@/stores/authStore.js'
+    import { mapState } from 'pinia';
+
     export default {
         name: 'SideBar',
         data() {
@@ -27,6 +31,16 @@
                     { name: "Reports", icon: "bi bi-bar-chart", label: "Analizler" },
                     { name: "Users", icon: "bi bi-people", label: "Kullanıcılar" },
                 ]
+            }
+        },
+        computed: {
+            ...mapState(useAuthStore, ['isAdmin']),
+            filteredLinks() {
+                if (this.isAdmin) {
+                    return this.sideBarLinks;
+                } else {
+                    return this.sideBarLinks.filter(link => link.name !== "Projects" && link.name !== "Users");
+                }
             }
         }
     }
