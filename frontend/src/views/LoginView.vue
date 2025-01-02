@@ -65,7 +65,7 @@
             async submitForm() {
                 try {
                     await this.loginUser(this.formData);
-                    console.log('Login successfull!');
+                    this.$router.push({ name: 'Dashboard' });
                 } catch (error) {
                     console.error('Login error: ', error);
                 }
