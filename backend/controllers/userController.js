@@ -8,7 +8,7 @@ const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z0-9])[A-Za-z\d@$!%*#?
 const getAllUsers = async (req, res) => {
     try {
         
-        const users = await User.find().select('-password');
+        const users = await User.find().select('-password').populate('projects', 'projectName');
         res.status(200).json(users)
         
     } catch (error) {

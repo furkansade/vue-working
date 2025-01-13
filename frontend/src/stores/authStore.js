@@ -11,15 +11,6 @@ export const useAuthStore = defineStore('authStore', {
         }
     },
     actions: {
-        async createUser(newUserData) {
-            console.log(newUserData);
-            try {
-                const response = await axios.post("http://localhost:3000/api/v1/users/new", newUserData)
-                return response.data;
-            } catch (error) {
-                throw error;
-            }
-        },
         async loginUser(userData) {
             console.log(userData);
             try {

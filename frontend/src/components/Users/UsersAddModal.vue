@@ -59,8 +59,8 @@
 </template>
 
 <script>
-
-import { useAuthStore } from '@/stores/authStore.js'
+import { Modal } from 'bootstrap';
+import { useUserStore } from '@/stores/userStore';
 import { mapActions } from 'pinia';
  
 export default {
@@ -78,17 +78,33 @@ export default {
     }
   },
   methods: {
-    ...mapActions(useAuthStore, ['createUser']),
+    ...mapActions(useUserStore, ['createUser']),
     async submitForm() {
       try {
         await this.createUser(this.formData);
         console.log('created user succesfull');
+
+        this.formData = {
+          firstName: '',
+          lastName: '',
+          email: '',
+          password: '',
+          role: '',
+          projects: [],
+        }
+
+        // close the modal not jquery
+        const modal = new Modal(document.getElementById('addUserModal'));
+        modal.hide();
+
         
       } catch (error) {
-        console.error('User created error: ', error);
-        
+        console.error('User created error: ', error);        
       }
     }
+  },
+  computed: {
+    ...mapActions(useUserStore, ['fetchUsers']),
   }
 }
 </script>
