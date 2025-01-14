@@ -1,7 +1,8 @@
 <template>
     <div v-if="!loading">
         <PageHeader parentTitle="Projeler" parentTitleLink="Projects" :title="project.projectName" breadcrumb="Projeler > Single Proje" buttonText="Düzenle" buttonAction="#editProjectModal" buttonColor="btn-warning"/>
-        <button class="btn btn-sm btn-danger" @click="goToBackProjects">Geri Git!</button>
+        <button class="btn btn-sm btn-primary mx-2" @click="goToBackProjects">Geri Git!</button>
+        <button class="btn btn-sm btn-danger" @click="handleDeleteProject(project._id)">Projeyi Sil!</button>
         <h1>{{ project.projectName }}</h1>
         <hr>
         <h2>{{ project.projectDescription }}</h2>
@@ -39,10 +40,14 @@ export default {
             const projectId = this.$route.params.id;
             this.project = this.selectedProject(projectId);
             this.loading = false;
+        },
+        async handleDeleteProject(projectId) {
+            await this.deleteProject(projectId);
+            this.$router.push({ name: 'Projects' });
         }
     },
     computed: {
-        ...mapState(useProjectStore, ['selectedProject'])
+        ...mapState(useProjectStore, ['selectedProject', 'deleteProject'])
     },
     data() {
         return {

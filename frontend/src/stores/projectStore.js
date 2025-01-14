@@ -26,5 +26,25 @@ export const useProjectStore = defineStore("projectStore", {
         this.isLoading = false;
       }
     },
+    async createProject(newProjectData) {
+      try {
+        const response = await axios.post(
+          "http://localhost:3000/api/v1/projects",
+          newProjectData
+        );
+        this.projects.push(response.data);
+        return response.data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async deleteProject(projectId) {
+      try {
+        await axios.delete(`http://localhost:3000/api/v1/projects/${projectId}`);
+        this.projects = this.projects.filter(project => project._id !== projectId);
+      } catch (error) {
+        console.error(error);
+      }
+    },
   }
 });

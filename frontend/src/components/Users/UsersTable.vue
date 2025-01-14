@@ -29,7 +29,7 @@
           </button>
         </td>
         <td>
-          <button class="btn btn-sm btn-outline-danger">
+          <button class="btn btn-sm btn-outline-danger" @click="deleteUser(user._id)">
             <i class="bi bi-trash"></i>
           </button>
         </td>
@@ -72,13 +72,17 @@ import { mapState } from 'pinia';
 export default {
   name: 'UsersTable',
   computed: {
-    ...mapState(useUserStore, ['users', 'selectedUser']),
+    ...mapState(useUserStore, ['users', 'deleteUser', 'selectedUser']),
   },
   methods: {
     showUserProjects(userId) {
       const userStore = useUserStore();
       userStore.selectUser(userId);
     },
+    deleteUser(userId) {
+      const userStore = useUserStore();
+      userStore.deleteUser(userId);
+    }
   },
   created() {
     const userStore = useUserStore();

@@ -101,7 +101,7 @@ export default {
         }
     },
     computed: {
-        ...mapState(useProjectStore, ['projects', 'isLoading']),
+        ...mapState(useProjectStore, ['projects', 'isLoading', 'fetchProjects', 'createProject']),
         totalPages() {
             return Math.ceil(this.projects.length / this.itemsPerPage);
         },
@@ -116,8 +116,19 @@ export default {
             this.currentPage = page;
         },
         submitForm() {
-            console.log('Form submitted:', this.formData);
-        }
+            this.createProject(this.formData);
+            this.formData = {
+                projectName: '',
+                projectExpireDate: '',
+                projectDescription: '',
+                projectStatus: '',
+                users: []
+            }
+        },
+        async fetchProjects() {
+            const projectStore = useProjectStore();
+            await projectStore.fetchProjects();
+        },
     },
 }
 </script>
